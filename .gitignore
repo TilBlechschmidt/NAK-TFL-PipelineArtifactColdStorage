@@ -1,3 +1,11 @@
+data/**/*.tar
+data/generated/
+data/block-compression/*.zstd
+data/block-compression/*.zst
+data/block-compression/dictionary
+data/block-compression/files.txt
+data/block-compression/target
+data/block-compression/243670_success
 out/
 sptcloud.exe
 sptcloud

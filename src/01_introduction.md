@@ -1,51 +1,51 @@
 ---
-    header-title: Transferleistung 1
-    title: Optimierung der Build-Dauer eines Web Application Bundler durch Anpassung der Konfiguration und dessen Auswirkung auf den Entwicklungsprozess
+    header-title: Transfer paper 6
+    title: Effective cold-storage of CI pipeline artifacts
 
-    author: Max Mustermann
-    Zenturie: A22f
+    author: Til Blechschmidt
+    Zenturie: A17a
     Studiengang: Angewandte Informatik
-    Matrikelnummer: 1337
+    Matrikelnummer: 8240
 
-    keywords: [keyword1, keyword2]
-    
     # This can be replaced with any valid bibliography file (.yaml, .json, .bib)
-    bibliography: src/bibliography.yaml
+    bibliography: src/bibliography.json
+
+    lang: en
+
+    figPrefix:
+      - "figure"
+      - "figures"
+
+    secPrefix:
+      - "section"
+      - "sections"
+
+    linestretch: 1.25
 ---
 
-# Possent ventis hanc delubra (+CPU)
+\newcommand\todo[1]{\textcolor{red}{TODO #1}}
 
-## Colophonius curvum stetit sospes
+# Introduction
 
-Lorem markdownum Hiems elaborque totum porrigit. Pereuntem tamen Cereris
-**habenas** sum captus quoque, videt, actum auras atria, memorantur arborea
-offer postquam Lichan; inmensos.
+Over the years, the prices for computer storage have decreased [@hdd-prices]. At the same time, consumption has grown significantly [@ssd-sales] [@hdd-shipments-1] [@hdd-shipments-2]. In the meantime, software development has seen a trend towards automated and continuous testing [@devops] [@ci-usage] [@devops-importance].
 
-1. Crede crudelis rescindere rapit collabitur capillis inpar
-2. Cum fuerit eheu Scyrumve
-3. Lycaon flammiferis subit
-4. Urbem cadme servitii tibi leve vestem pendentia
-5. Postquam fronti alios mentis despondet ingenti Mater
+By looking at an example from PPI AG, it becomes clear that pipelines produce vast amounts of data. A two-hour test suite outputs approximately 5GB of logs and debugging information. The team of roughly 40 employees using these runs about 2.200 pipelines a month which amounts to just under 360GB a day. However, this data is not only produced for static analysis. It should be accessible for extended periods so that potential issues and test failures can be debugged. Given the example, a 4TB drive lasts for less than two weeks (ignoring redundancy and storage speeds requirements).
 
-## Quae cuncta {#sec:section1}
+This presents a significant scalability challenge as multiple teams might require potentially hundreds of terabytes a month, depending on the company's size. For this reason, optimising the storage usage and thus making the best use of the available storage is paramount to achieve efficient scalability. The arguably simplest method to increase storage density is by the use of compression algorithms. Based on that, we can formulate the primary research question of this paper:
 
-Voces ales credita. Cum misit terram est votaque quis dederat sumit, profecturas
-criminis totque sex querenti. Iudice est illis *et* vires et Insula, mactandus,
-credulitate iudicium ita. Ganz interessant ist dabei +@tbl:id
+> Which compression algorithms are suited for archival of pipeline artefacts?
 
-| Tables        |      Are      |  Cool |
-|---------------|:-------------:|------:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      |   centered    |   $12 |
-| zebra stripes |   are neat    |    $1 |
+Furthermore, we shall consider the nature of the data at hand. It may be considered semi-volatile as it is written once and accessed a few times over a period of less than a week^[Further research regarding the actual storage period is being conducted in parallel.]. For this reason, the data may be considered read-only until it is eventually deleted. The data access may not be considered sequential as the developer is expected to query HTML reports and log files depending on the type of issue encountered. It is thus randomly accessed. Given that the data is compressed at rest, we may formulate our secondary research question:
 
-Table: Beispiel Tabelle {#tbl:id}
+> How to ensure random read-only access to compressed data?
 
-Saxa resoluta quid nupta, tremulis ore infelix
-[ipse](http://urbes-caede.org/siccaveratadversum) deque caelitibus confessa
-amnis at tamque, **procul siquidem** in artis! Poma partes sponte, nam lux
-discedit gravi aequore nunc[@src:source1]. Diese Information findet man in @fig:example.
+To answer these questions, the paper will be split into two parts. In @sec:compression, we will be evaluating the CPU resource usage and compression ratio of different compression algorithms based on a data set collected from the previously mentioned development team. Later on, we will be looking at possible methods to allow random access to compressed data.
 
-![Beispiel Abbildung](src/images/example.jpeg){#fig:example}
+<!--
+- Word definition
+  - Compression ratio
+  - Algorithm runtime (CPU time)
+  - Compression level (CLI flag)
+-->
 
 \pagebreak

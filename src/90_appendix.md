@@ -1,13 +1,13 @@
 \pagebreak
 \pagenumbering{roman}
-\setcounter{page}{4}
+\setcounter{page}{3}
 
-\section*{Literaturverzeichnis}
-\addcontentsline{toc}{section}{Literaturverzeichnis}
+\section*{References}
+\addcontentsline{toc}{section}{References}
 
 <div id="refs"></div>
 
-\pagebreak
+<!-- \pagebreak
 \appendix
 \section*{Appendix}
 \addcontentsline{toc}{section}{Appendix}
@@ -15,4 +15,4 @@
 
 ## Abbildungen
 
-Hier gehören Abbildungen hin, die nicht in den Hauptteil passen!
+Hier gehören Abbildungen hin, die nicht in den Hauptteil passen! -->
